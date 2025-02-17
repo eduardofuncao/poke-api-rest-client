@@ -33,4 +33,9 @@ public class PokemonRestTemplateController {
     public ResponseEntity<PokemonResponseDTO> getPokemonById(@PathVariable Long id) {
         return ResponseEntity.ok(pokemonService.getPokemonById(id));
     }
+
+    @GetMapping("/random")
+    public ResponseEntity<PokemonResponseDTO> getRandomPokemon() {
+        return ResponseEntity.ok(pokemonService.getRandomPokemon());
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,6 +69,26 @@ public class PokemonRestTemplateService {
         Pokemon pokemon = pokemonRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pokémon não encontrado com o ID: " + id));
         return convertToResponse(pokemon);
+    }
+
+    public PokemonResponseDTO getRandomPokemon() {
+        Random random = new Random();
+        int randomPokemonID = random.nextInt(1025) + 1;
+
+        String url = "https://pokeapi.co/api/v2/pokemon/" + randomPokemonID;
+        Pokemon apiPokemon;
+
+        try {
+            apiPokemon = restTemplate.getForObject(url, Pokemon.class);
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw new RuntimeException("Pokémon não encontrado: id " + randomPokemonID);
+            }
+            throw new RuntimeException("Erro ao buscar o Pokémon: " + e.getMessage());
+        }
+
+        assert apiPokemon != null;
+        return convertToResponse(apiPokemon);
     }
 
     private PokemonResponseDTO convertToResponse(Pokemon pokemon) {
