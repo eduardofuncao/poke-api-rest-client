@@ -6,13 +6,15 @@ public class PokemonResponseDTO {
     private int height;
     private int weight;
     private String types;
+    int score;
 
-    public PokemonResponseDTO(Long id, String name, int height, int weight, String types) {
+    public PokemonResponseDTO(Long id, String name, int height, int weight, String types, int score) {
         this.id = id;
         this.name = name;
         this.height = height;
         this.weight = weight;
         this.types = types;
+        this.score = score;
     }
 
     public Long getId() {
@@ -49,6 +51,14 @@ public class PokemonResponseDTO {
 
     public String getTypes() {
         return types;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public void setTypes(String types) {

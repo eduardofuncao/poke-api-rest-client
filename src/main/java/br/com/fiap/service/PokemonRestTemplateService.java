@@ -99,7 +99,8 @@ public class PokemonRestTemplateService {
                 pokemon.getWeight(),
                 pokemon.getTypes().stream()
                         .map(type -> type.getType().getName()) // Extrai o nome do tipo
-                        .collect(Collectors.joining(", ")) // Junta os nomes com ", "
+                        .collect(Collectors.joining(", ")), // Junta os nomes com ", "
+                pokemon.getTypes().toArray().length*(pokemon.getHeight()+pokemon.getWeight())
         );
     }
 }
